@@ -1,0 +1,11 @@
+RewriteEngine On
+RewriteRule ^sitemap\.xml$ sitemap.php [L]
+
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Jika folder/file fisik TIDAK ADA, baru lempar ke index.php root
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?slug=$1 [L,QSA]
