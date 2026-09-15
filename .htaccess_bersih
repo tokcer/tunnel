@@ -1,0 +1,17 @@
+DirectoryIndex index.php index.html
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+
+# Jangan ganggu file atau folder asli yang benar-benar ada di server
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Aturan khusus untuk sitemap.xml
+RewriteRule ^sitemap\.xml$ sitemap.php [L]
+
+# Lempar semua sisa URL ke index.php sebagai slug
+RewriteRule ^(.*)$ index.php?slug=$1 [L]
+</IfModule>
